@@ -9,7 +9,7 @@ Easy to use mailer that sends you all crash reports from your Android apps.
 - secured by a shared secret
 
 ## Requirements
-- webserver with PHP support
+- webserver with PHP support or PAAS like free small basic PHP gear in http://openshift.com
 - [Application Crash Report for Android](https://github.com/ACRA/acra)
 - 5 minutes for setup
 
@@ -41,6 +41,14 @@ public void onCreate() {
 		ACRA.getErrorReporter().setReportSender(new ACRAPostSender(ACRAData));
 ```
 
+* If you use PAAS for hosting PHP function mail() is not supported. PAAS providers do not have any email software installed on the servers. 
+You would have to use an external SMTP server (like http://www.mailgun.com). Once you have added your domain to Mailgun you need to add DNS records to verify your domain and you will have your secret API key. [mailgun-quickstart-sending](https://documentation.mailgun.com/quickstart-sending.html#how-to-start-sending-email)
+To switch email service its need to have GET or POST parameter EMAIL_SERVICE=MAILGUN and mailgun api key and registered domain:
+```
+if(isset($_REQUEST['EMAIL_SERVICE']) && $_REQUEST['EMAIL_SERVICE']=='MAILGUN'){
+    $mg = new Mailgun("key-xxx...");
+    $domain = "my-mailgun-verified-domain.com";
+```
 ## Sample E-Mail error report
 
 <center>
