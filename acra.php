@@ -1,4 +1,6 @@
 <?php
+require 'vendor/autoload.php';
+use Mailgun\Mailgun;
 //CONFIG
 $shared_secret = "my_shared_secret";
 
@@ -671,9 +673,21 @@ pre {
 $message = ob_get_contents();
 ob_end_clean();
 
-$headers = "Content-type: text/html\r\n";
 $subject = "Android Crash Report: {$_REQUEST['PACKAGE_NAME']} {$_REQUEST['APP_VERSION_NAME']} on {$_REQUEST['PHONE_MODEL']} ({$_REQUEST['ANDROID_VERSION']})";
 
-mail($_REQUEST['email'], $subject, $message, $headers);
+if(isset($_REQUEST['EMAIL_SERVICE']) && $_REQUEST['EMAIL_SERVICE']=='MAILGUN'){
+    $mg = new Mailgun("key-xxx...");
+    $domain = "my-mailgun-verified-domain.com";
+
+# Now, compose and send your message.
+    $mg->sendMessage($domain, array(
+        'from'    => 'acra@'.$domain,
+        'to'      => $_REQUEST['email'],
+        'subject' => $subject,
+        'html'    => $message));
+}else {
+    $headers = "Content-type: text/html\r\n";
+    mail($_REQUEST['email'], $subject, $message, $headers);
+}
 	
 ?>
