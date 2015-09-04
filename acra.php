@@ -656,7 +656,7 @@ pre {
 		    <table class="table" style="width:100%;" cellpadding="0" cellspacing="0" border="0" align="center">
 		    	<?php foreach($_REQUEST as $k=>$v) {
 		        	if (trim($v) == "") continue;
-		        	if (in_array(trim($k), array("email", "key", "token"))) continue;
+		        	if (in_array(trim($k), array("email", "key", "token", "EMAIL_SERVICE"))) continue;
 		        ?>
 		        <tr class="<?=stristr($k, "trace") ? "error":""?>">
 		            <td valign="top"><?=str_replace("_", " ", strtoupper($k))?></td>
