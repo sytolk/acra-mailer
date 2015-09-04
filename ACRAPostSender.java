@@ -35,7 +35,7 @@ public class ACRAPostSender implements ReportSender {
 	}
 	
 	@Override
-	public void send(CrashReportData report) throws ReportSenderException {
+	public void send(Context context, CrashReportData report) throws ReportSenderException {
 
 		String url = getUrl();
 		Log.e("xenim", url);
@@ -64,7 +64,7 @@ public class ACRAPostSender implements ReportSender {
 			parameters.add(new BasicNameValuePair("PRODUCT", report.get(ReportField.PRODUCT)));
 			parameters.add(new BasicNameValuePair("TOTAL_MEM_SIZE", report.get(ReportField.TOTAL_MEM_SIZE)));
 			parameters.add(new BasicNameValuePair("AVAILABLE_MEM_SIZE", report.get(ReportField.AVAILABLE_MEM_SIZE)));
-			parameters.add(new BasicNameValuePair("CUSTOM_DATA", report.get(ReportField.CUSTOM_DATA)));
+			//parameters.add(new BasicNameValuePair("CUSTOM_DATA", report.get(ReportField.CUSTOM_DATA)));
 			parameters.add(new BasicNameValuePair("STACK_TRACE", report.get(ReportField.STACK_TRACE)));
 			parameters.add(new BasicNameValuePair("INITIAL_CONFIGURATION", report.get(ReportField.INITIAL_CONFIGURATION)));
 			parameters.add(new BasicNameValuePair("CRASH_CONFIGURATION", report.get(ReportField.CRASH_CONFIGURATION)));
